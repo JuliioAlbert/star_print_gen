@@ -1,7 +1,7 @@
 name: star_print_gen
 description: Gendroid Print Start Micronics
 version: 0.0.1
-homepage:
+homepage: https://github.com/JuliioAlbert/star_print_gen.git
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -26,6 +26,8 @@ flutter:
     platforms:
       android:
         package: io.eddayy.flutter_star_prnt
+        pluginClass: FlutterStarPrntPlugin
+      ios:
         pluginClass: FlutterStarPrntPlugin
 
   # To add assets to your package, add an assets section, like this:

@@ -234,7 +234,7 @@ public class FlutterStarPrntPlugin : FlutterPlugin, MethodCallHandler {
     val emulation: String = call.argument<String>("emulation") as String
     val printCommands: ArrayList<Map<String, Any>> =
         call.argument<ArrayList<Map<String, Any>>>("printCommands") as ArrayList<Map<String, Any>>
-      val reimpresion: Boolean = call.argument<Boolean>("reimpresion") as Boolean
+     val reimpresion: Boolean = call.argument<Boolean>("reimpresion") as Boolean
       val copia: Boolean = call.argument<Boolean>("copia") as Boolean
 
     if (printCommands.size < 1) {
@@ -250,13 +250,13 @@ public class FlutterStarPrntPlugin : FlutterPlugin, MethodCallHandler {
       return
     }
     val builder: ICommandBuilder = StarIoExt.createCommandBuilder(getEmulation(emulation))
-      builder.beginDocument()
+         builder.beginDocument()
 
       if (copia){
           //Titulo Logo Nieto
           builder.appendLogo(LogoSize.Normal, 0)
           //Nota
-          appendCommands(builder, printCommands, context)
+          appendCommands(builder, printCommands, applicationContext)
           //Logo Asistencia Nieto
           builder.appendLogo(LogoSize.Normal, 2)
           builder.appendCutPaper(CutPaperAction.PartialCut)
@@ -265,7 +265,7 @@ public class FlutterStarPrntPlugin : FlutterPlugin, MethodCallHandler {
           //Titulo Logo Nieto
           builder.appendLogo(LogoSize.Normal, 0)
           //Nota
-          appendCommands(builder, printCommands, context)
+          appendCommands(builder, printCommands, applicationContext)
           //Logo Asistencia Nieto
           builder.appendLogo(LogoSize.Normal, 2)
           //Poner Logo Reimpresion Saber Posicion
@@ -276,7 +276,7 @@ public class FlutterStarPrntPlugin : FlutterPlugin, MethodCallHandler {
       if(reimpresion){
           builder.appendLogo(LogoSize.Normal, 0)
           //Nota
-          appendCommands(builder, printCommands, context)
+          appendCommands(builder, printCommands, applicationContext)
           //Logo Asistencia Nieto
           builder.appendLogo(LogoSize.Normal, 2)
           //Poner Logo Reimpresion Saber Posicion
@@ -287,7 +287,7 @@ public class FlutterStarPrntPlugin : FlutterPlugin, MethodCallHandler {
       //Titulo Logo Nieto
       builder.appendLogo(LogoSize.Normal, 0)
       //Nota
-      appendCommands(builder, printCommands, context)
+      appendCommands(builder, printCommands, applicationContext)
       //Logo Asistencia Nieto
       builder.appendLogo(LogoSize.Normal, 2)
       builder.appendCutPaper(CutPaperAction.PartialCut)
