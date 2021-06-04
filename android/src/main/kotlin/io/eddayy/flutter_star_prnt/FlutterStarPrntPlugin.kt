@@ -252,9 +252,10 @@ public class FlutterStarPrntPlugin : FlutterPlugin, MethodCallHandler {
     val builder: ICommandBuilder = StarIoExt.createCommandBuilder(getEmulation(emulation))
          builder.beginDocument()
 
-      if (copia){
+      if (copia && !reimpresion){
+
           //Titulo Logo Nieto
-          builder.appendLogo(LogoSize.Normal, 0)
+          builder.appendLogo(LogoSize.Normal, 1)
           //Nota
           appendCommands(builder, printCommands, applicationContext)
           //Logo Asistencia Nieto
@@ -263,42 +264,85 @@ public class FlutterStarPrntPlugin : FlutterPlugin, MethodCallHandler {
          //////////////////
           //Copia
           //Titulo Logo Nieto
-          builder.appendLogo(LogoSize.Normal, 0)
+          builder.appendLogo(LogoSize.Normal, 1)
           //Nota
           appendCommands(builder, printCommands, applicationContext)
           //Logo Asistencia Nieto
           builder.appendLogo(LogoSize.Normal, 2)
           //Poner Logo Reimpresion Saber Posicion
-          //builder.appendLogo(LogoSize.Normal, 3)
+          builder.appendLogo(LogoSize.Normal, 3)
           builder.appendCutPaper(CutPaperAction.PartialCut)
+          sendCommand(
+              portName,
+              getPortSettingsOption(emulation),
+              builder.getCommands(),
+              applicationContext,
+              result)
       }
       //Copia
-      if(reimpresion){
-          builder.appendLogo(LogoSize.Normal, 0)
+      if(reimpresion && !copia){
+          builder.appendLogo(LogoSize.Normal, 1)
           //Nota
           appendCommands(builder, printCommands, applicationContext)
           //Logo Asistencia Nieto
           builder.appendLogo(LogoSize.Normal, 2)
           //Poner Logo Reimpresion Saber Posicion
-          //builder.appendLogo(LogoSize.Normal, 3)
+          builder.appendLogo(LogoSize.Normal, 3)
           builder.appendCutPaper(CutPaperAction.PartialCut)
+          sendCommand(
+              portName,
+              getPortSettingsOption(emulation),
+              builder.getCommands(),
+              applicationContext,
+              result)
+      }
+      if(!copia && !reimpresion){
+          //Titulo Logo Nieto
+          builder.appendLogo(LogoSize.Normal, 1)
+          //Nota
+          appendCommands(builder, printCommands, applicationContext)
+          //Logo Asistencia Nieto
+          builder.appendLogo(LogoSize.Normal, 2)
+          builder.appendCutPaper(CutPaperAction.PartialCut)
+          builder.endDocument()
+          //Fin Documento
+          sendCommand(
+              portName,
+              getPortSettingsOption(emulation),
+              builder.getCommands(),
+              applicationContext,
+              result)
+      }
+      if(copia && reimpresion){
+          //Titulo Logo Nieto
+          builder.appendLogo(LogoSize.Normal, 1)
+          //Nota
+          appendCommands(builder, printCommands, applicationContext)
+          //Logo Asistencia Nieto
+          builder.appendLogo(LogoSize.Normal, 2)
+          //Poner Logo Reimpresion Saber Posicion
+          builder.appendLogo(LogoSize.Normal, 3)
+          builder.appendCutPaper(CutPaperAction.PartialCut)
+          //////////////////
+          //Copia
+          //Titulo Logo Nieto
+          builder.appendLogo(LogoSize.Normal, 1)
+          //Nota
+          appendCommands(builder, printCommands, applicationContext)
+          //Logo Asistencia Nieto
+          builder.appendLogo(LogoSize.Normal, 2)
+          //Poner Logo Reimpresion Saber Posicion
+          builder.appendLogo(LogoSize.Normal, 3)
+          builder.appendCutPaper(CutPaperAction.PartialCut)
+          sendCommand(
+              portName,
+              getPortSettingsOption(emulation),
+              builder.getCommands(),
+              applicationContext,
+              result)
       }
 
-      //Titulo Logo Nieto
-      builder.appendLogo(LogoSize.Normal, 0)
-      //Nota
-      appendCommands(builder, printCommands, applicationContext)
-      //Logo Asistencia Nieto
-      builder.appendLogo(LogoSize.Normal, 2)
-      builder.appendCutPaper(CutPaperAction.PartialCut)
-      builder.endDocument()
-      //Fin Documento
-    sendCommand(
-        portName,
-        getPortSettingsOption(emulation),
-        builder.getCommands(),
-        applicationContext,
-        result)
+
   }
 
   private fun getPortDiscovery(@NonNull interfaceName: String): MutableList<Map<String, String>> {

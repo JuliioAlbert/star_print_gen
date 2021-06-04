@@ -21,29 +21,8 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
-  Future<Uint8List> _capturePng() async {
-    try {
-      RenderRepaintBoundary boundary =
-          _globalKey.currentContext.findRenderObject();
-      ui.Image image = await boundary.toImage(pixelRatio: 3.0);
-      ByteData byteData =
-          await image.toByteData(format: ui.ImageByteFormat.png);
-      final pngBytes = byteData.buffer.asUint8List();
-      return pngBytes;
-    } catch (e) {
-      print(e);
-      return Uint8List(0);
-    }
-  }
 
-  String emulationFor(String modelName) {
-    String emulation = 'StarGraphic';
-    if (modelName != null && modelName != '') {
-      final em = StarMicronicsUtilities.detectEmulation(modelName: modelName);
-      emulation = em?.emulation;
-    }
-    return emulation;
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -54,15 +33,11 @@ class _MyAppState extends State<MyApp> {
           children: <Widget>[
             TextButton(
               onPressed: () async {
-                List<PortInfo> list =
-                    await StarPrnt.portDiscovery(StarPortType.All);
-                print(list);
+                List<PortInfo> list = await StarPrnt.portDiscovery(StarPortType.Bluetooth);
                 list.forEach((port) async {
-                  print(port.portName);
-                  if (port.portName.isNotEmpty) {
                     print(await StarPrnt.getStatus(
-                      portName: port.portName,
-                      emulation: emulationFor(port.modelName),
+                      portName: port.portName.toString(),
+                      emulation: 'EscPosMobile',
                     ));
 
                     PrintCommands commands = PrintCommands();
@@ -96,94 +71,13 @@ class _MyAppState extends State<MyApp> {
                     print(await StarPrnt.sendCommands(
                         portName: port.portName,
                         emulation: 'EscPosMobile',
-                        printCommands: commands, copia: false, reimpresion: false));
+                        printCommands: commands, copia: true, reimpresion: true));
                   }
-                });
+                );
               },
               child: Text('Print from text'),
             ),
-            TextButton(
-              onPressed: () async {
-                //FilePickerResult file = await FilePicker.platform.pickFiles();
-                List<PortInfo> list =
-                    await StarPrnt.portDiscovery(StarPortType.All);
-                print(list);
-                list.forEach((port) async {
-                  print(port.portName);
-                  if (port.portName.isNotEmpty) {
-                    print(await StarPrnt.getStatus(
-                      portName: port.portName,
-                      emulation: emulationFor(port.modelName),
-                    ));
-
-                    PrintCommands commands = PrintCommands();
-                    commands.appendBitmap(
-                        path:
-                            'https://c8.alamy.com/comp/MPCNP1/camera-logo-design-photograph-logo-vector-icons-MPCNP1.jpg');
-                    print(await StarPrnt.sendCommands(
-                        portName: port.portName,
-                        emulation: emulationFor(port.modelName),
-                        printCommands: commands));
-                  }
-                });
-                setState(() {
-                  isLoading = false;
-                });
-              },
-              child: Text('Print from url'),
-            ),
-            SizedBox(
-              width: 576, // 3'' only
-              child: RepaintBoundary(
-                key: _globalKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text('This is a text to print as image , for 3\''),
-                  ],
-                ),
-              ),
-            ),
-            TextButton(
-              onPressed: () async {
-                final img = await _capturePng();
-                setState(() {
-                  isLoading = true;
-                });
-                //FilePickerResult file = await FilePicker.platform.pickFiles();
-                List<PortInfo> list =
-                    await StarPrnt.portDiscovery(StarPortType.All);
-                print(list);
-
-                list.forEach((port) async {
-                  print(port.portName);
-                  if (port.portName.isNotEmpty) {
-                    print(await StarPrnt.getStatus(
-                      portName: port.portName,
-                      emulation: emulationFor(port.modelName),
-                    ));
-
-                    PrintCommands commands = PrintCommands();
-                    commands.appendBitmapByte(
-                      byteData: img,
-                      diffusion: true,
-                      bothScale: true,
-                      alignment: StarAlignmentPosition.Left,
-                    );
-                    print(await StarPrnt.sendCommands(
-                        portName: port.portName,
-                        emulation: emulationFor(port.modelName),
-                        printCommands: commands));
-                  }
-                });
-                setState(() {
-                  isLoading = false;
-                });
-              },
-              child: Text('Print from genrated image'),
-            ),
-          ],
+            ],
         ),
       ),
     );
