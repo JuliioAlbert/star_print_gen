@@ -39,8 +39,8 @@ class StarPrnt {
     required String portName,
     required String emulation,
     required PrintCommands printCommands,
-    required bool reimpresion,
-    required bool copia,
+    bool reimpresion = false,
+    bool copia = false,
   }) async {
     dynamic result = await _channel.invokeMethod('print', {
       'portName': portName,
