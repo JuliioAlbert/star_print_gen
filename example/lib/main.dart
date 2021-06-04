@@ -71,7 +71,7 @@ class _MyAppState extends State<MyApp> {
                     print(await StarPrnt.sendCommands(
                         portName: port.portName,
                         emulation: 'EscPosMobile',
-                        printCommands: commands, copia: true, reimpresion: true));
+                        printCommands: commands));
                   }
                 );
               },
