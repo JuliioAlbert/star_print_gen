@@ -19,4 +19,7 @@
 ## 0.0.6
 
 * TODO: Solucion espacio al cortar la nota. 
+## 0.0.7
+
+* TODO: Cambia el Gradle Android. 
 
