@@ -253,96 +253,21 @@ public class FlutterStarPrntPlugin : FlutterPlugin, MethodCallHandler {
     }
     val builder: ICommandBuilder = StarIoExt.createCommandBuilder(getEmulation(emulation))
          builder.beginDocument()
-
-      if (copia && !reimpresion){
-          //Titulo Logo Nieto
-              if(logo) builder.appendLogo(LogoSize.Normal, 1)
-          //Nota
-          appendCommands(builder, printCommands, applicationContext)
-          //Logo Asistencia Nieto
-          if(asistencia)builder.appendLogo(LogoSize.Normal, 2)
-
-          builder.appendCutPaper(CutPaperAction.PartialCut)
-         //////////////////
-          //Copia
-          //Titulo Logo Nieto
-          if(logo) builder.appendLogo(LogoSize.Normal, 1)
-          //Nota
-          appendCommands(builder, printCommands, applicationContext)
-          //Logo Asistencia Nieto
-          if(asistencia)builder.appendLogo(LogoSize.Normal, 2)
-          //Poner Logo Reimpresion Saber Posicion
-          builder.appendLogo(LogoSize.Normal, 3)
-          builder.appendCutPaper(CutPaperAction.PartialCut)
-          sendCommand(
+         //LOGO MEMORIA POSISION 1
+         if(logo)builder.appendLogo(LogoSize.Normal,1);
+         //TEXTO
+         appendCommands(builder, printCommands, applicationContext);
+         //LOGO MEMORIA POSISION 2
+         if(asistencia)builder.appendLogo(LogoSize.Normal, 2)
+         if(reimpresion)builder.appendLogo(LogoSize.Normal, 3)
+         builder.appendCutPaper(CutPaperAction.PartialCutWithFeed)
+         builder.endDocument()
+         sendCommand(
               portName,
               getPortSettingsOption(emulation),
               builder.getCommands(),
               applicationContext,
               result)
-      }
-      //Copia
-      if(reimpresion && !copia){
-          if(logo) builder.appendLogo(LogoSize.Normal, 1)
-          //Nota
-          appendCommands(builder, printCommands, applicationContext)
-          //Logo Asistencia Nieto
-          if(asistencia) builder.appendLogo(LogoSize.Normal, 2)
-          //Poner Logo Reimpresion Saber Posicion
-          builder.appendLogo(LogoSize.Normal, 3)
-          builder.appendCutPaper(CutPaperAction.PartialCut)
-          sendCommand(
-              portName,
-              getPortSettingsOption(emulation),
-              builder.getCommands(),
-              applicationContext,
-              result)
-      }
-      if(!copia && !reimpresion){
-          //Titulo Logo Nieto
-          if(logo) builder.appendLogo(LogoSize.Normal, 1)
-          //Nota
-          appendCommands(builder, printCommands, applicationContext)
-          //Logo Asistencia Nieto
-          if(asistencia) builder.appendLogo(LogoSize.Normal, 2)
-          builder.appendCutPaper(CutPaperAction.PartialCut)
-          builder.endDocument()
-          //Fin Documento
-          sendCommand(
-              portName,
-              getPortSettingsOption(emulation),
-              builder.getCommands(),
-              applicationContext,
-              result)
-      }
-      if(copia && reimpresion){
-          //Titulo Logo Nieto
-          if(logo) builder.appendLogo(LogoSize.Normal, 1)
-          //Nota
-          appendCommands(builder, printCommands, applicationContext)
-          //Logo Asistencia Nieto
-          if(asistencia) builder.appendLogo(LogoSize.Normal, 2)
-          //Poner Logo Reimpresion Saber Posicion
-          builder.appendLogo(LogoSize.Normal, 3)
-          builder.appendCutPaper(CutPaperAction.PartialCut)
-          //////////////////
-          //Copia
-          //Titulo Logo Nieto
-          if(logo) builder.appendLogo(LogoSize.Normal, 1)
-          //Nota
-          appendCommands(builder, printCommands, applicationContext)
-          //Logo Asistencia Nieto
-          if(asistencia) builder.appendLogo(LogoSize.Normal, 2)
-          //Poner Logo Reimpresion Saber Posicion
-          builder.appendLogo(LogoSize.Normal, 3)
-          builder.appendCutPaper(CutPaperAction.PartialCut)
-          sendCommand(
-              portName,
-              getPortSettingsOption(emulation),
-              builder.getCommands(),
-              applicationContext,
-              result)
-      }
 
 
   }
