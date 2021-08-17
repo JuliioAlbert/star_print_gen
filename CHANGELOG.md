@@ -12,3 +12,7 @@
 
 * TODO: Imprime nota con opciones de reimpresion de nota
 
+## 0.0.5
+
+* TODO: Imprime nota con opciones asistencia
+

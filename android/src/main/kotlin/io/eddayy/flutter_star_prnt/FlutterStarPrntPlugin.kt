@@ -236,6 +236,8 @@ public class FlutterStarPrntPlugin : FlutterPlugin, MethodCallHandler {
         call.argument<ArrayList<Map<String, Any>>>("printCommands") as ArrayList<Map<String, Any>>
      val reimpresion: Boolean = call.argument<Boolean>("reimpresion") as Boolean
       val copia: Boolean = call.argument<Boolean>("copia") as Boolean
+      val logo: Boolean = call.argument<Boolean>("logo") as Boolean
+      val asistencia: Boolean = call.argument<Boolean>("asistencia") as Boolean
 
     if (printCommands.size < 1) {
       val json: MutableMap<String, Any?> = mutableMapOf()
@@ -253,22 +255,22 @@ public class FlutterStarPrntPlugin : FlutterPlugin, MethodCallHandler {
          builder.beginDocument()
 
       if (copia && !reimpresion){
-
           //Titulo Logo Nieto
-          builder.appendLogo(LogoSize.Normal, 1)
+              if(logo) builder.appendLogo(LogoSize.Normal, 1)
           //Nota
           appendCommands(builder, printCommands, applicationContext)
           //Logo Asistencia Nieto
-          builder.appendLogo(LogoSize.Normal, 2)
+          if(asistencia)builder.appendLogo(LogoSize.Normal, 2)
+
           builder.appendCutPaper(CutPaperAction.PartialCut)
          //////////////////
           //Copia
           //Titulo Logo Nieto
-          builder.appendLogo(LogoSize.Normal, 1)
+          if(logo) builder.appendLogo(LogoSize.Normal, 1)
           //Nota
           appendCommands(builder, printCommands, applicationContext)
           //Logo Asistencia Nieto
-          builder.appendLogo(LogoSize.Normal, 2)
+          if(asistencia)builder.appendLogo(LogoSize.Normal, 2)
           //Poner Logo Reimpresion Saber Posicion
           builder.appendLogo(LogoSize.Normal, 3)
           builder.appendCutPaper(CutPaperAction.PartialCut)
@@ -281,11 +283,11 @@ public class FlutterStarPrntPlugin : FlutterPlugin, MethodCallHandler {
       }
       //Copia
       if(reimpresion && !copia){
-          builder.appendLogo(LogoSize.Normal, 1)
+          if(logo) builder.appendLogo(LogoSize.Normal, 1)
           //Nota
           appendCommands(builder, printCommands, applicationContext)
           //Logo Asistencia Nieto
-          builder.appendLogo(LogoSize.Normal, 2)
+          if(asistencia) builder.appendLogo(LogoSize.Normal, 2)
           //Poner Logo Reimpresion Saber Posicion
           builder.appendLogo(LogoSize.Normal, 3)
           builder.appendCutPaper(CutPaperAction.PartialCut)
@@ -298,11 +300,11 @@ public class FlutterStarPrntPlugin : FlutterPlugin, MethodCallHandler {
       }
       if(!copia && !reimpresion){
           //Titulo Logo Nieto
-          builder.appendLogo(LogoSize.Normal, 1)
+          if(logo) builder.appendLogo(LogoSize.Normal, 1)
           //Nota
           appendCommands(builder, printCommands, applicationContext)
           //Logo Asistencia Nieto
-          builder.appendLogo(LogoSize.Normal, 2)
+          if(asistencia) builder.appendLogo(LogoSize.Normal, 2)
           builder.appendCutPaper(CutPaperAction.PartialCut)
           builder.endDocument()
           //Fin Documento
@@ -315,22 +317,22 @@ public class FlutterStarPrntPlugin : FlutterPlugin, MethodCallHandler {
       }
       if(copia && reimpresion){
           //Titulo Logo Nieto
-          builder.appendLogo(LogoSize.Normal, 1)
+          if(logo) builder.appendLogo(LogoSize.Normal, 1)
           //Nota
           appendCommands(builder, printCommands, applicationContext)
           //Logo Asistencia Nieto
-          builder.appendLogo(LogoSize.Normal, 2)
+          if(asistencia) builder.appendLogo(LogoSize.Normal, 2)
           //Poner Logo Reimpresion Saber Posicion
           builder.appendLogo(LogoSize.Normal, 3)
           builder.appendCutPaper(CutPaperAction.PartialCut)
           //////////////////
           //Copia
           //Titulo Logo Nieto
-          builder.appendLogo(LogoSize.Normal, 1)
+          if(logo) builder.appendLogo(LogoSize.Normal, 1)
           //Nota
           appendCommands(builder, printCommands, applicationContext)
           //Logo Asistencia Nieto
-          builder.appendLogo(LogoSize.Normal, 2)
+          if(asistencia) builder.appendLogo(LogoSize.Normal, 2)
           //Poner Logo Reimpresion Saber Posicion
           builder.appendLogo(LogoSize.Normal, 3)
           builder.appendCutPaper(CutPaperAction.PartialCut)

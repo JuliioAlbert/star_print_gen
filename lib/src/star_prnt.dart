@@ -36,9 +36,12 @@ class StarPrnt {
 
   /// Sends [PrintCommands] to the printer. Have to specify [portName] and [emulation]. Returns [PrinterResponseStatus]
   static Future<PrinterResponseStatus> sendCommands({
+    
     required String portName,
     required String emulation,
     required PrintCommands printCommands,
+    bool logo = true,
+    bool asistencia = false,
     bool reimpresion = false,
     bool copia = false,
   }) async {
@@ -47,7 +50,9 @@ class StarPrnt {
       'emulation': emulation,
       'printCommands': printCommands.getCommands(),
       'reimpresion': reimpresion,
-      'copia': copia
+      'copia': copia,
+      'logo' : logo,
+      'asistencia': asistencia
     });
     return PrinterResponseStatus.fromMap(
       Map<String, dynamic>.from(result),

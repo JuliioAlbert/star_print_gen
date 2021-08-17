@@ -1,10 +1,6 @@
-import 'dart:typed_data';
 
-// import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:star_print_gen/star_print_gen.dart';
-import 'dart:ui' as ui;
 
 void main() => runApp(MyApp());
 
@@ -14,7 +10,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  GlobalKey _globalKey = new GlobalKey();
   bool isLoading = false;
   @override
   void initState() {
@@ -71,7 +66,9 @@ class _MyAppState extends State<MyApp> {
                     print(await StarPrnt.sendCommands(
                         portName: port.portName,
                         emulation: 'EscPosMobile',
-                        printCommands: commands));
+                        printCommands: commands,
+                        
+                        ));
                   }
                 );
               },
