@@ -14,5 +14,9 @@
 
 ## 0.0.5
 
-* TODO: Imprime nota con opciones asistencia
+* TODO: Imprime nota con opciones asistencia.
+
+## 0.0.6
+
+* TODO: Solucion espacio al cortar la nota. 
 
