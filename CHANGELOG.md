@@ -23,3 +23,10 @@
 
 * TODO: Cambia el Gradle Android. 
 
+## 0.0.8
+
+* TODO: Cambia el Gradle Android 7.1. 
+
+## 0.0.9
+
+* TODO: Cambia el Gradle Android 7.1. Java 11
