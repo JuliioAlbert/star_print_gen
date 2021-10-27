@@ -258,8 +258,8 @@ public class FlutterStarPrntPlugin : FlutterPlugin, MethodCallHandler {
          //TEXTO
          appendCommands(builder, printCommands, applicationContext);
          //LOGO MEMORIA POSISION 2
-         if(asistencia)builder.appendLogo(LogoSize.Normal, 2)
-         if(reimpresion)builder.appendLogo(LogoSize.Normal, 3)
+         if(reimpresion)builder.appendLogo(LogoSize.Normal, 2)
+         if(asistencia)builder.appendLogo(LogoSize.Normal, 3)
          builder.appendCutPaper(CutPaperAction.PartialCutWithFeed)
          builder.endDocument()
          sendCommand(
