@@ -1,14 +1,13 @@
 # Star_Print_Gendroid
 
-Gendroid Impresoras Star Micronics 
+Gendroid Impresoras Star Micronics
 GEN
 Seleccionado nota original y copia de la nota y reimpresion.
-
 
 Emulation
 SM-T300i 2.4 or later Bluetooth EscPosMobile
 
-* Agregar texto;
+- Agregar texto;
 
 ```
     String _texto = "        Star Clothing Boutique\n" +
@@ -44,14 +43,28 @@ SM-T300i 2.4 or later Bluetooth EscPosMobile
 
 ```
 
-* Agregar UnitList
+- Agregar UnitList
+
 ```
   PrintCommands commands = PrintCommands();
   commands.appendBitmapByte(byteData: )
   await Impresora.imprimir(commands: commands);
 ```
 
+- Agregar Permission manifest de tu proyecto
 
+```
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+```
 
+- Agregar PermissionHandler
 
-
+```
+  final permison = await Permission.location.request();
+  final blue = await Permission.bluetoothConnect.request();
+  final blueS = await Permission.bluetoothScan.request();
+```
