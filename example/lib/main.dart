@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_star_prnt_example/impresora.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:star_print_gen/star_print_gen.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final permison = await Permission.location.request();
+  final blue = await Permission.bluetoothConnect.request();
+  final blueS = await Permission.bluetoothScan.request();
+
+  print("permison ${blue.isGranted}");
+  print("blue ${permison.isGranted}");
+  print("blueS ${blue.isGranted}");
+
+  runApp(MyApp());
+}
 
 class MyApp extends StatefulWidget {
   @override
@@ -31,7 +43,10 @@ class _MyAppState extends State<MyApp> {
 
                   commands.appendBitmapText(text: texto);
                   await Impresora.imprimir(commands: commands);
-                  await Impresora.imprimir(reimpresion: true);
+                  await Impresora.imprimir(
+                    reimpresion: true,
+                    commands: commands,
+                  );
                 },
                 child: Text('Print from text'),
               ),

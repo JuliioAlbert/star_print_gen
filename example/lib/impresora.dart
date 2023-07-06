@@ -1,10 +1,11 @@
 import 'package:star_print_gen/star_print_gen.dart';
 
 abstract class Impresora {
-  static Future<void> imprimir(
-      {bool reimpresion = false,
-      bool asistencia = true,
-      PrintCommands commands}) async {
+  static Future<void> imprimir({
+    bool reimpresion = false,
+    bool asistencia = true,
+    required PrintCommands commands,
+  }) async {
     List<PortInfo> list = await StarPrnt.portDiscovery(StarPortType.Bluetooth);
     for (PortInfo port in list) {
       await StarPrnt.getStatus(
@@ -12,12 +13,15 @@ abstract class Impresora {
         emulation: 'EscPosMobile',
       );
 
-      await StarPrnt.sendCommands(
-          portName: port.portName,
+      if (port.portName != null) {
+        await StarPrnt.sendCommands(
+          portName: port.portName!,
           emulation: 'EscPosMobile',
           printCommands: commands,
           reimpresion: reimpresion,
-          asistencia: asistencia);
+          asistencia: asistencia,
+        );
+      }
     }
   }
 }
